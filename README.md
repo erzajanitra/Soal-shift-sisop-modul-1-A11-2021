@@ -113,7 +113,8 @@ Pada *awk*, semua fungsi *printf* dimasukkan pada blok ``END``.
     Iterasi total keuntungan masing-masing region pada array ``reg``, kemudian dibandingkan dengan sebuah variabel *profit* untuk mencari nilai total terkecil. Nama region atau *i* disimpan pada variabel *nama_reg*.
 
 ### File hasil.txt
-```/home/erzajanitra/Downloads/Laporan-TokoShiSop.tsv > hasil.txt```
 Output soal 2a, 2b, 2c, dan 2d ditampilkan pada file **hasil.txt**
+* ```/home/erzajanitra/Downloads/Laporan-TokoShiSop.tsv > hasil.txt```
+
 
 ## No. 3
