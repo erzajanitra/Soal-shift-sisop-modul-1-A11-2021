@@ -3,7 +3,19 @@
 ## No. 1
 
 ## No. 2
-Mencari beberapa kesimpulan dari data penjualan ``Laporan-TokoShiSop.tsv`` yang akan dijelaskan pada no *2a, 2b, 2c, dan 2d*. Soal *2a, 2b, 2c, dan 2d* dikerjakan pada script ``soal2_generate_laporan_ihi_shisop``. Hasil pengerjaan soal tersebut ditampilkan pada ``hasil.txt``. 
+Mencari beberapa kesimpulan dari data penjualan ``Laporan-TokoShiSop.tsv`` yang akan dijelaskan pada no *2a, 2b, 2c, dan 2d*. Soal *2a, 2b, 2c, dan 2d* dikerjakan pada script ``soal2_generate_laporan_ihi_shisop``. Hasil pengerjaan soal tersebut ditampilkan pada ``hasil.txt``.
+* Import awk
+``` #!/bin/bash
+    awk '
+```
+ Untuk mengerjakan soal ini kami menggunakan ``awk`` sehingga pada awal ``shell script`` harus mengimport ``awk`` terlebih dahulu.
+ * Field Separator
+ ```
+    BEGIN	{
+    FS="\t"
+    }
+ ```
+ Karena pada file ``Laporan-TokoShiSop.tsv`` tiap kolom dipisahkan dengan *tab* maka menggunakan *FS="\t"*
 
 ### 2a
 Steven ingin mengapresiasi kinerja karyawannya selama ini dengan mengetahui *Row ID* dan *Profit Percentage* terbesar (jika hasil profit percentage terbesar lebih dari 1, maka ambil Row ID yang paling besar). Karena kamu bingung, Clemong memberikan definisi dari profit percentage, yaitu:
@@ -13,7 +25,7 @@ Cost Price didapatkan dari pengurangan Sales dengan Profit. (Quantity diabaikan)
   ```soal2_generate_laporan_ihir_shisop.sh
      pp=($21/($18-$21))*100
   ```
-  Berdasarkan rumus untuk mencari Profit Percentage yang telah diberikan, value dari kolom Profit didapatkan dengan menggunakan $21. Sementara itu, untuk mendapatkan Cost Price yaitu dengan mengurangi Sales yang didapatkan dengan $18 dan Profit yang didapatkan dengan $21. Kemudian hasil pembagian dari Profit dan Cost Price dikalikan dengan 100.
+  Berdasarkan rumus untuk mencari **Profit Percentage** yang telah diberikan, value dari kolom **Profit** didapatkan dengan menggunakan **$21**. Sementara itu, untuk mendapatkan **Cost Price** yaitu dengan mengurangi Sales yang didapatkan dengan **$18** dan Profit yang didapatkan dengan **$21**. Kemudian hasil pembagian dari Profit dan Cost Price dikalikan dengan 100.
 * Mendapatkan nilai ``Profit Percentage`` terbesar
   ```soal2_generate_laporan_ihir_shisop.sh
      if(pp>=max){
@@ -21,11 +33,11 @@ Cost Price didapatkan dari pengurangan Sales dengan Profit. (Quantity diabaikan)
         id=$1
      }
   ```
-    Membandingkan *Profit Percentage* yang dituliskan dengan variabel *pp* dengan suatu variabel *max* untuk menyimpan nilai terbesar. Apabila nilai *pp* lebih besar dibandingkan dengan nilai *max* maka *Profit Percentage* terbesar akan disimpan di variabel *max*. Kemudian, ``id=$1`` digunakan untuk menyimpan *Row ID* paling besar.
+    Membandingkan **Profit Percentage** yang dituliskan dengan variabel *pp* dengan suatu variabel *max* untuk menyimpan nilai terbesar. Apabila nilai *pp* lebih besar dibandingkan dengan nilai *max* maka *Profit Percentage* terbesar akan disimpan di variabel *max*. Kemudian, ``id=$1`` digunakan untuk menyimpan *Row ID* paling besar.
  * Menampilkan ``Row ID`` dan ``Profit Percentage``
   ```soal2_generate_laporan_ihir_shisop.sh
      printf("Transaksi terakhir dengan profit percentage terbesar yaitu %d dengan persentase %.2f%%",id,max)
   ```
-   Menampilkan *Row Id* dan *Profit Percentage* yang telah didapatkan dengan variabel *id* dan *max*.   
+   Menampilkan **Row Id** dan **Profit Percentage** yang telah didapatkan dengan variabel *id* dan *max*. Pada *awk*, semua fungsi *printf* dimasukkan pada blok ``END``.
 
 ## No. 3
