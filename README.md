@@ -86,5 +86,32 @@ Pada *awk*, semua fungsi *printf* dimasukkan pada blok ``END``.
      }
   ```
     Iterasi semua nilai pada array ``nama`` untuk menampilkan semua nama pada array tersebut. 
+* Menampilkan ``Tipe Segment`` yang memiliki jumlah transaksi terkecil dan ``Jumlah Transaksi Segment`` dari soal **2c**
+  ```soal2_generate_laporan_ihir_shisop.sh
+     if(sc1<sc2 && sc1<sc3){
+        printf("Tipe segmen customer yang penjualannya paling sedikit adalah Home Office dengan %d transaksi\n", sc1)
+      }
+     else if(sc2<sc1 && sc2<sc3){
+        printf("Tipe segmen customer yang penjualannya paling sedikit adalah Consumer dengan %d transaksi\n", sc2)
+      }
+     else if(sc3<sc1 && sc3<sc2){
+        printf("Tipe segmen customer yang penjualannya paling sedikit adalah Corporate dengan %d transaksi\n", sc3)
+     }
+  ```
+    Menggunakan *if-else condition* untuk mencari jumlah transaksi terkecil. Terdapat 3 kondisi, yaitu apabila *sc1* adalah yang terkecil, atau *sc2* maupun *$3*.
+* Menampilkan ``Nama Region`` yang memiliki total keuntungan terkecil dan ``Total Keuntungan Region``  dari soal **2d**
+  ```soal2_generate_laporan_ihir_shisop.sh
+     profit=99999999
+    for(i in reg){
+    if(profit>reg[i]){
+        profit=reg[i]
+        nama_reg=i
+    }
+    }
+    printf("Wilayah bagian (region) yang memiliki total keuntungan (profit) yang paling sedikit adalah %s dengan total keuntungan %.2f\n", nama_reg,profit)
+  ```
+    Iterasi total keuntungan masing-masing region pada array ``reg``, kemudian dibandingkan dengan sebuah variabel *profit* untuk mencari nilai total terkecil. Nama region atau *i* disimpan pada variabel *nama_reg*.
+  
+  
 
 ## No. 3
