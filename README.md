@@ -3,6 +3,8 @@
 ## No. 1
 
 ## No. 2
+Mencari beberapa kesimpulan dari data penjualan ``Laporan-TokoShiSop.tsv`` yang akan dijelaskan pada no *2a, 2b, 2c, dan 2d*. Soal *2a, 2b, 2c, dan 2d* dikerjakan pada script ``soal2_generate_laporan_ihi_shisop``. Hasil pengerjaan soal tersebut ditampilkan pada ``hasil.txt``. 
+
 ### 2a
 Steven ingin mengapresiasi kinerja karyawannya selama ini dengan mengetahui *Row ID* dan *Profit Percentage* terbesar (jika hasil profit percentage terbesar lebih dari 1, maka ambil Row ID yang paling besar). Karena kamu bingung, Clemong memberikan definisi dari profit percentage, yaitu:
 ``Profit Percentage = (Profit ÷ Cost Price) × 100``
@@ -24,7 +26,6 @@ Cost Price didapatkan dari pengurangan Sales dengan Profit. (Quantity diabaikan)
   ```soal2_generate_laporan_ihir_shisop.sh
      printf("Transaksi terakhir dengan profit percentage terbesar yaitu %d dengan persentase %.2f%%",id,max)
   ```
-    Menampilkan *Row ID* dan *Profit Percentage* terbesar dengan variabel *id* dan *max*
-    
+   Menampilkan *Row Id* dan *Profit Percentage* yang telah didapatkan dengan variabel *id* dan *max*.   
 
 ## No. 3
