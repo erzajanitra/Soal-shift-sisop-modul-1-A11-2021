@@ -58,7 +58,7 @@ Cost Price didapatkan dari pengurangan Sales dengan Profit. (Quantity diabaikan)
          sc3+=1
       }
   ```
-Menggunakan *if-else condition* untuk menghitung jumlah transaksi masing-masing segment. Segment customer berada pada kolom ``Segment`` yang bisa dituliskan dengan **$8**. Untuk menghitung menggunakan counter, yaitu *sc1* untuk **Home Office**, *sc2* untuk **Consumer**, dan *sc2* untuk **Corporate**. Counter akan bertambah apabila kondisi yang sedang dicek memenuhi salah satu syarat tersebut. Kemudian, untuk mencari nilai terkecilnya akan dijelaskan pada bagian ``Blok END`` **2c**
+Menggunakan *if-else condition* untuk menghitung jumlah transaksi masing-masing segment. Segment customer berada pada kolom ``Segment`` yang bisa dituliskan dengan **$8**. Untuk menghitung menggunakan counter, yaitu *sc1* untuk **Home Office**, *sc2* untuk **Consumer**, dan *sc3* untuk **Corporate**. Counter akan bertambah apabila kondisi yang sedang dicek memenuhi salah satu syarat tersebut. Kemudian, untuk mencari nilai terkecilnya akan dijelaskan pada bagian ``Blok END`` **2c**
 ### 2d
 **Soal**: TokoShiSop membagi wilayah bagian (region) penjualan menjadi empat bagian, antara lain: **Central, East, South, dan West**. Manis ingin mencari wilayah bagian
 (region) yang memiliki **total keuntungan (profit) paling sedikit** dan **total keuntungan wilayah** tersebut.
