@@ -196,7 +196,7 @@ Pada *awk*, semua fungsi *printf* dimasukkan pada blok ``END``.
         printf("Tipe segmen customer yang penjualannya paling sedikit adalah Corporate dengan %d transaksi\n", sc3)
      }
   ```
-    Menggunakan *if-else condition* untuk mencari jumlah transaksi terkecil. Terdapat 3 kondisi, yaitu apabila *sc1* adalah yang terkecil, atau *sc2* maupun *$3*.
+    Menggunakan *if-else condition* untuk mencari jumlah transaksi terkecil. Terdapat 3 kondisi, yaitu apabila *sc1* adalah yang terkecil, atau *sc2* maupun *sc3*.
 * Menampilkan ``Nama Region`` yang memiliki total keuntungan terkecil dan ``Total Keuntungan Region``  dari soal **2d**
   ```soal2_generate_laporan_ihir_shisop.sh
      profit=99999999
