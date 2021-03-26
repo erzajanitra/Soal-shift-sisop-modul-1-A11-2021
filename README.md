@@ -1,6 +1,104 @@
 # Penjelasan dan Penyelesaian Soal Shift Modul 1
 
+
 ## No. 1
+Membuat 2 CSV file yaitu `error_message.csv` dan `user_statistic.csv` dengan input beberapa data spesifik dalam ``syslog.log`` yang didapat dari no *1a,1b, dan 1c*
+* Import bash
+`#!/bin/bash`
+
+**GREP** : `grep` atau global-regular-expression (regex) yang mana command ini berfungsi untuk mencocokkan data berupa karakter maupun angka yang terdapat di dalam data. grep sangat tepat digunakan untuk mencari pola dari suatu data.
+
+**PIPE** : `pipe` atau dinotasikan dengan `|` adalah command untuk menyatakan redirection atau statement dimana sebelum `|` akan menjadi input untuk statement setelah `|`.
+
+### Narasi Soal :
+Ryujin baru saja diterima sebagai IT support di perusahaan Bukapedia. Dia diberikan tugas untuk membuat laporan harian untuk aplikasi internal perusahaan, ticky. Terdapat 2 laporan yang harus dia buat, yaitu laporan daftar peringkat pesan error terbanyak yang dibuat oleh ticky dan laporan penggunaan user pada aplikasi ticky. Untuk membuat laporan tersebut, Ryujin harus melakukan beberapa hal berikut:
+
+### 1a
+### Soal :
+(a) Mengumpulkan informasi dari log aplikasi yang terdapat pada file syslog.log. Informasi yang diperlukan antara lain: jenis log (ERROR/INFO), pesan log, dan username pada setiap baris lognya. Karena Ryujin merasa kesulitan jika harus memeriksa satu per satu baris secara manual, dia menggunakan regex untuk mempermudah pekerjaannya. Bantulah Ryujin
+membuat regex tersebut.
+### Jawab :
+guna mempermudah penggunaan dan fleksibilitas nama file syslog.log, maka digunakan sebuah variabel file untuk menampung nama file syslog.log
+```
+error=$(cat $file | grep 'ERROR')
+info=$(cat $file | grep 'INFO')
+
+jumlah_error=$(grep -c 'ERROR' $file)
+jumlah_info=$(grep -c 'INFO' $file)
+
+```
+pada variabel error dan info digunakan pipe dan regular-expression dimana nilai dari variabel error dan info didapat dari isi file syslog.log yang kemudian dijadikan input untuk regex/grep setelahnya. dimana variabel ini pada akhirnya akan mengembalikan nilai dari seluruh baris yang mengandung kata ERROR/INFO. 
+
+kemudian untuk mencari jumlah error/info digunakan lagi regex/grep dengan menambahkan command  `-c` yang berarti akan mengembalikan nilai `COUNT` dari data-data yang cocok.
+
+### 1b
+### Soal :
+(b) Kemudian, Ryujin harus menampilkan semua pesan error yang muncul beserta jumlah kemunculannya.
+### Jawab :
+```
+pesan=$(echo "$error" | grep -Po '(?<=ERROR\s)(.*)(?= )')
+hitung_pesan=$(echo "$pesan" | sort | uniq -c )
+```
+dari variabel error yang sudah didapat di nomor sebelumnya pada bagian ini variabel error digunakan lagi untuk mencari pesan yang terdapat di setiap barisnya dengan mengcapture setiap baris yang datang setelah kata 'ERROR' diikuti 1 spasi hingga menemui akhir string sebelum spasi yang datang sesudah akhir string pesan.
+
+pada bagian hitung pesan, pesan yang sudah diambil dari variabel pesan akan diurutkan sesuai kesamaan stringnya kemudian dihitung dengan `-c` bersamaan dengan mengoutputkan salah satu perwakilan string pesan yang dihitung. 
+
+### 1c
+### Soal :
+(c) Ryujin juga harus dapat menampilkan jumlah kemunculan log ERROR dan INFO untuk setiap user-nya.
+### Jawab :
+```
+user=$(cat $file | grep -Po '(?<=\()(.*)(?=\))' | sort -u)
+```
+variabel user berfungsi untuk mencari seluruh nama user
+kemudian untuk mempersingkat dan mereduksi repetisi kode maka jumlah kemunculan log ERROR dan INFO setiap user akan diproses langsung pada ### No.1e
+
+### 1d
+### Soal :
+(d) Semua informasi yang didapatkan pada poin b dituliskan ke dalam file error_message.csv dengan header Error,Count yang kemudian diikuti oleh daftar pesan error dan jumlah kemunculannya diurutkan berdasarkan jumlah kemunculan pesan error dari yang terbanyak.
+Contoh:
+```
+Error,Count
+Permission denied,5
+File not found,3
+Failed to connect to DB,2
+```
+### Jawab :
+```
+echo 'Error,Count' > error_message.csv
+echo "$hitung_pesan" | while read row;
+do
+error=$(echo $row | cut -d ' ' -f 2-)
+count=$(echo $row | cut -d ' ' -f 1)
+ec="$error,$count"
+echo $ec >> error_message.csv
+done
+```
+`echo` yang pertama berfungsi untuk menambahkan header pada .csv file.
+setelahnya terjadi looping dari variabel hitung_pesan dimana setiap pembacaan baris akan diambil variabel error yang berisi pesan error kemudian diberikan command `cut` guna memotong bagian-bagian stringnya dengan `-d` berfungsi sebagai delimiter yang menghentikan pengambilan argumen. pada kasus ini digunakan empty_string karena baris hitung_pesan terdiri dari empty_space dari argumen 1 ke argumen yang lain. kemudian `-f` berarti field yang berguna untuk mengambil nilai argumen. berlaku juga `cut`, delimiter dan field pada variabel count.
+
+variabel ec adalah variabel final yang akan dioutputkan untuk kemudian ditambahkan pada tail file error_message.csv
+
+### 1e
+### Soal :
+(e) Semua informasi yang didapatkan pada poin c dituliskan ke dalam file user_statistic.csv dengan header Username,INFO,ERROR diurutkan berdasarkan username secara ascending.
+```
+Username,INFO,ERROR
+kaori02,6,0
+kousei01,2,2
+ryujin.1203,1,3
+```
+### JAWAB :
+```
+echo 'Username,INFO,ERROR' > user_statistic.csv
+for i in $user
+do
+err_count=$(cat $file | grep 'ERROR' | grep -c $i)
+info_count=$(cat $file | grep 'INFO' | grep -c $i)
+echo "$i,$info_count,$err_count" >> user_statistic.csv
+done
+```
+pada bagian ini setiap variabel berguna untuk menghitung banyak error dan info dari setiap user sebagaimana pada poin 1c kemudian dioutputkan secara langsung dan ditambahkan pada tail file user_statistic.csv
 
 ## No. 2
 Mencari beberapa kesimpulan dari data penjualan ``Laporan-TokoShiSop.tsv`` yang akan dijelaskan pada no *2a, 2b, 2c, dan 2d*. Soal *2a, 2b, 2c, dan 2d* dikerjakan pada script ``soal2_generate_laporan_ihi_shisop.sh``. Hasil pengerjaan soal tersebut ditampilkan pada ``hasil.txt``.
