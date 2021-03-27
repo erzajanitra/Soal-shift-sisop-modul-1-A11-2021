@@ -256,7 +256,8 @@ Gambar yang telah didownload dari script **soal3a.sh** dipindahkan ke folder *sh
 Mengunduh gambar kelinci dari "https://loremflickr.com/320/240/bunny", kemudian gambar tersebut diunduh bergantian per hari dengan gambar kucing dari "https://loremflickr.com/320/240/kitten". 
 * Membuat fungsi ```kelinciF()``` dan ```kucingF()``` untuk mengunduh gambar dan menyimpan      gambar pada directory ```"Kelinci_$tanggal"``` untuk kelinci dan ```"Kucing_$tanggal"```
 * Mendownload gambar secara bergantian dengan menghitung jumlah folder kucing dan kelinci. 
-```c1=$(ls | grep "Kelinci_" | wc -l)
+```
+    c1=$(ls | grep "Kelinci_" | wc -l)
     c2=$(ls | grep "Kucing_" | wc -l)
 ```
 * Apabila jumlah folder kucing dan kelinci sama, maka akan menjalankan fungsi ```kucingF()``` terlebih dahulu karena urutan gambar yang lebih dulu didownload bebas. Jika jumlah folder kucing dan kelinci berbeda maka akan menjalankan fungsi ```kelinciF```
@@ -264,5 +265,5 @@ Mengunduh gambar kelinci dari "https://loremflickr.com/320/240/bunny", kemudian 
 ### 3d
 Membuat script yang akan memindahkan seluruh folder ke zip yang diberi nama “Koleksi.zip” dan mengunci zip tersebut dengan password berupa tanggal saat ini dengan format "MMDDYYYY".
 * ```-P``` password berupa tanggal saat ini
-* ```-mr``` nama file zip
-* ```$(ls | grep -E "Kelinci_|Kucing")``` file yang akan di zip
+* ```-mr``` nama folder zip
+* ```$(ls | grep -E "Kelinci_|Kucing_")``` folder yang akan di zip adalah "Kelinci_$tanggal" dan "Kucing_$tanggal"
