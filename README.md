@@ -1,4 +1,10 @@
 # Penjelasan dan Penyelesaian Soal Shift Modul 1
+NRP              | Nama
+-----------------|-----------
+05111940000032   | Tsania Az Zahra
+05111940000153   | Erza Janitradevi Nadine
+05111940000220   | Marsa Aushaf Rafi
+
 
 
 ## No. 1
