@@ -269,6 +269,6 @@ Membuat script yang akan memindahkan seluruh folder ke zip yang diberi nama “K
 * ```$(ls | grep -E "Kelinci_|Kucing_")``` folder yang akan di zip adalah "Kelinci_$tanggal" dan "Kucing_$tanggal"
 
 ### 3e
-* Membuat koleksinya ter-zip saat kuliah saja, selain dari waktu yang disebutkan, ia ingin koleksinya ter-unzip dan tidak ada file zip sama sekali.
-```* 7-18 1-5 * * /bin/bash /home/erzajanitra/shift1soal3/soal3d.sh```
-```* 0-7,18-23 1-5 * * unzip -P $(date +"%m%d%Y") Koleksi.zip```
+Membuat koleksinya ter-zip saat kuliah saja, selain dari waktu yang disebutkan, ia ingin koleksinya ter-unzip dan tidak ada file zip sama sekali.
+* ```* 7-18 1-5 * * /bin/bash /home/erzajanitra/shift1soal3/soal3d.sh```
+* ```* 0-7,18-23 1-5 * * unzip -P $(date +"%m%d%Y") Koleksi.zip```
