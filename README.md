@@ -223,3 +223,33 @@ Output soal 2a, 2b, 2c, dan 2d ditampilkan pada file **hasil.txt**
 
 
 ## No. 3
+### 3a
+* Mengunduh 23 gambar dari "https://loremflickr.com/320/240/kitten" 
+```soal2_generate_laporan_ihir_shisop.sh
+    for i in {1..23}
+    do 
+         wget -a Foto.log "https://loremflickr.com/320/240/kitten" -O "Koleksi_$i.jpg"
+    done
+```
+```wget -a``` digunakan untuk membuat logfile dari mendownload foto dan disimpan pada *Foto.log*. Sedangkan, ``` -O ``` digunakan untuk memberikan nama file untuk masing-masing gambar yang di download.
+* Menghapus gambar yang sama tanpa mengunduh gambar lagi
+```declare -A koleksi_foto``` untuk membuat array bernama *koleksi_foto*.```shopt -s globstar``` digunakan untuk mencari file gambar yang sama. ```cksm``` untuk mengecek jumlah gambar yang sama. Apabila ada gambar yang sama akan di remove. 
+* Rename nama file untuk Koleksi 1 - Koleksi 9
+Gambar disimpan dengan format nama *Koleksi_XX*, maka untuk gambar nomor 1-9 diganti menjadi 01,02,..,09.
+
+### 3b
+#### Crontab
+* Menjalankan script **sehari sekali pada jam 8 malam dari tanggal 1 tujuh hari sekali**
+```0 20 1-31/7 * * /bin/bash /home/erzajanitra/shift1soal3/soal3b.sh```
+* Menjalankan script **sehari sekali pada jam 8 malam dari tanggal 2 empat hari sekali**
+0 20 2-31/4 * * /bin/bash /home/erzajanitra/shift1soal3/soal3b.sh
+#### soal3b.sh
+* Memindahkan gambar ke folder dengan nama tanggal download
+```
+    bash /home/erzajanitra/shift1soal3/soal3a.sh
+    mv *.jpg $fotoKucing
+    mv Foto.log $fotoKucing
+```
+Gambar yang telah didownload dari script **soal3a.sh** dipindahkan ke folder *shift1soal3* dengan nama directory tanggal download  *DD-MM-YYYY*
+
+
