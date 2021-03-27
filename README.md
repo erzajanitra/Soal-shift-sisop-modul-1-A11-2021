@@ -242,7 +242,7 @@ Gambar disimpan dengan format nama *Koleksi_XX*, maka untuk gambar nomor 1-9 dig
 * Menjalankan script **sehari sekali pada jam 8 malam dari tanggal 1 tujuh hari sekali**
 ```0 20 1-31/7 * * /bin/bash /home/erzajanitra/shift1soal3/soal3b.sh```
 * Menjalankan script **sehari sekali pada jam 8 malam dari tanggal 2 empat hari sekali**
-0 20 2-31/4 * * /bin/bash /home/erzajanitra/shift1soal3/soal3b.sh
+```0 20 2-31/4 * * /bin/bash /home/erzajanitra/shift1soal3/soal3b.sh```
 #### soal3b.sh
 * Memindahkan gambar ke folder dengan nama tanggal download
 ```
