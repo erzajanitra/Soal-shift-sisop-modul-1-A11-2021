@@ -9,9 +9,12 @@ NRP              | Nama
 
 
 ## No. 1
-Membuat 2 CSV file yaitu `error_message.csv` dan `user_statistic.csv` dengan input beberapa data spesifik dalam ``syslog.log`` yang didapat dari no *1a,1b, dan 1c*
+
+Mengoutput status info/error beserta pesan dan usernamenya, Menghitung banyak error setiap pesannya, Membuat 2 CSV file yaitu `error_message.csv` dan `user_statistic.csv` dengan input beberapa data spesifik dalam ``syslog.log`` yang didapat dari no *1a,1b, dan 1c*
+
 * Import bash
 `#!/bin/bash`
+
 
 **GREP** : `grep` atau global-regular-expression (regex) yang mana command ini berfungsi untuk mencocokkan data berupa karakter maupun angka yang terdapat di dalam data. grep sangat tepat digunakan untuk mencari pola dari suatu data.
 
@@ -20,45 +23,71 @@ Membuat 2 CSV file yaitu `error_message.csv` dan `user_statistic.csv` dengan inp
 ### Narasi Soal :
 Ryujin baru saja diterima sebagai IT support di perusahaan Bukapedia. Dia diberikan tugas untuk membuat laporan harian untuk aplikasi internal perusahaan, ticky. Terdapat 2 laporan yang harus dia buat, yaitu laporan daftar peringkat pesan error terbanyak yang dibuat oleh ticky dan laporan penggunaan user pada aplikasi ticky. Untuk membuat laporan tersebut, Ryujin harus melakukan beberapa hal berikut:
 
-### 1a
+## 1a
 ### Soal :
 (a) Mengumpulkan informasi dari log aplikasi yang terdapat pada file syslog.log. Informasi yang diperlukan antara lain: jenis log (ERROR/INFO), pesan log, dan username pada setiap baris lognya. Karena Ryujin merasa kesulitan jika harus memeriksa satu per satu baris secara manual, dia menggunakan regex untuk mempermudah pekerjaannya. Bantulah Ryujin
 membuat regex tersebut.
 ### Jawab :
 guna mempermudah penggunaan dan fleksibilitas nama file syslog.log, maka digunakan sebuah variabel file untuk menampung nama file syslog.log
 ```
+file='syslog.log'
+
 error=$(cat $file | grep 'ERROR')
 info=$(cat $file | grep 'INFO')
 
-jumlah_error=$(grep -c 'ERROR' $file)
-jumlah_info=$(grep -c 'INFO' $file)
+echo "$error" | while read row;
+do
+status=$(echo $row | grep -oP 'INFO|ERROR')
+message=$(echo $row | grep -oP '(?<=[ERROR|INFO]\s)(.*)(?<=[a-z] )')
+username=$(echo $row | grep -oP '(?<=\()(.*)(?=\))')
+ec="$status,$message,$username"
+echo $ec
+done
 
+echo "$info" | while read row;
+do
+status=$(echo $row | grep -oP 'INFO|ERROR')
+message=$(echo $row | grep -oP '(?<=[ERROR|INFO]\s)(.*)(?<=[a-z] )')
+username=$(echo $row | grep -oP '(?<=\()(.*)(?=\))')
+ec="$status,$message,$username"
+echo $ec
+done
 ```
 pada variabel error dan info digunakan pipe dan regular-expression dimana nilai dari variabel error dan info didapat dari isi file syslog.log yang kemudian dijadikan input untuk regex/grep setelahnya. dimana variabel ini pada akhirnya akan mengembalikan nilai dari seluruh baris yang mengandung kata ERROR/INFO. 
 
-kemudian untuk mencari jumlah error/info digunakan lagi regex/grep dengan menambahkan command  `-c` yang berarti akan mengembalikan nilai `COUNT` dari data-data yang cocok.
+kemudian untuk mencari jumlah error/info digunakan lagi regex/grep dengan memisahkan output berdasarkan variabel info/error yang sudah didapat sebelumnya. dengan menggunakan pipe dan looping yang membaca setiap baris dari variabel info/error kemudian didapat status error/info, pesan error/info, dan usernamenya. `-oP` adalah gabungan dari command 'only-match' dan 'Perl' sebagai standar grep yang keduanya berfungsi untuk mengambil karakter yang HANYA COCOK dengan karakter regex yang disebutkan. jadi tidak akan diambil semua isi barisnya.
+
 
 ### 1b
 ### Soal :
 (b) Kemudian, Ryujin harus menampilkan semua pesan error yang muncul beserta jumlah kemunculannya.
 ### Jawab :
 ```
-pesan=$(echo "$error" | grep -Po '(?<=ERROR\s)(.*)(?= )')
-hitung_pesan=$(echo "$pesan" | sort | uniq -c )
+pesan=$(echo "$error" | grep -Po '(?<=ERROR\s)(.*)(?<=[a-z] )')
+hitung_pesan=$(echo "$pesan" | sort | uniq -c | sort -nr)
+
+#echo $pesan
+echo $hitung_pesan
 ```
 dari variabel error yang sudah didapat di nomor sebelumnya pada bagian ini variabel error digunakan lagi untuk mencari pesan yang terdapat di setiap barisnya dengan mengcapture setiap baris yang datang setelah kata 'ERROR' diikuti 1 spasi hingga menemui akhir string sebelum spasi yang datang sesudah akhir string pesan.
 
-pada bagian hitung pesan, pesan yang sudah diambil dari variabel pesan akan diurutkan sesuai kesamaan stringnya kemudian dihitung dengan `-c` bersamaan dengan mengoutputkan salah satu perwakilan string pesan yang dihitung. 
+pada bagian hitung pesan, pesan yang sudah diambil dari variabel pesan akan diurutkan sesuai kesamaan stringnya kemudian dihitung dengan `-c` bersamaan dengan mengoutputkan salah satu perwakilan string pesan yang dihitung. sort `-nr` [number reversed] berfungsi sebagai yang mengurutkan berdasarkan angka secara ascending tetapi mengalami reverse sehingga mengakibatkan terurut secara descending.
 
 ### 1c
 ### Soal :
 (c) Ryujin juga harus dapat menampilkan jumlah kemunculan log ERROR dan INFO untuk setiap user-nya.
 ### Jawab :
 ```
-user=$(cat $file | grep -Po '(?<=\()(.*)(?=\))' | sort -u)
+user=$(cat $file | grep -Po '(?<=\()(.*)(?=\V)' | sort | uniq)
+
+for line in $user;
+do
+err_count=$(cat $file | grep 'ERROR' | grep -wc $line )
+info_count=$(cat $file | grep 'INFO' | grep -wc $line )
+echo "$line,$info_count,$err_count"
+done
 ```
-variabel user berfungsi untuk mencari seluruh nama user
-kemudian untuk mempersingkat dan mereduksi repetisi kode maka jumlah kemunculan log ERROR dan INFO setiap user akan diproses langsung pada ### No.1e
+variabel user berfungsi untuk mencari seluruh nama user dengan menghilangkan duplikasi sehingga akan dimunculkan setiap user hanya 1 nama dan sudah disortir/diurutkan. kemudian pada bagian looping dicek untuk setiap usernya untuk dihitung tiap error dan info yang tertulis dalam file syslog-nya. masih menggunakan regex dan pipe kemudian ditambahkan command `-wc` yang berarti word dan count dimana variabel line akan dihitung sebagai 1 string sehingga tidak ada backtracking/look forward yang mengakibatkan hitungan mencakup nama user lain serta count seperti penjelasan sebelumnya berfungsi sebagai pencacah.
 
 ### 1d
 ### Soal :
@@ -98,11 +127,11 @@ ryujin.1203,1,3
 ### JAWAB :
 ```
 echo 'Username,INFO,ERROR' > user_statistic.csv
-for i in $user
+for row in $user;
 do
-err_count=$(cat $file | grep 'ERROR' | grep -c $i)
-info_count=$(cat $file | grep 'INFO' | grep -c $i)
-echo "$i,$info_count,$err_count" >> user_statistic.csv
+err_count=$(cat $file | grep 'ERROR' | grep -wc $row )
+info_count=$(cat $file | grep 'INFO' | grep -wc $row )
+echo "$row,$info_count,$err_count" >> user_statistic.csv
 done
 ```
 pada bagian ini setiap variabel berguna untuk menghitung banyak error dan info dari setiap user sebagaimana pada poin 1c kemudian dioutputkan secara langsung dan ditambahkan pada tail file user_statistic.csv
