@@ -255,6 +255,8 @@ Pada *awk*, semua fungsi *printf* dimasukkan pada blok ``END``.
 ![image](https://user-images.githubusercontent.com/75319371/113247910-1ce78380-92e6-11eb-937c-ad3334282920.png)
 
 ### Kendala yang dialami selama mengerjakan nomor 2
+1. Pada saat mengerjakan no 2a, variabel yang digunakan untuk menunjukkan hasil *profit percentage* terbesar salah sehingga output menjadi salah. Seharusnya kami menggunakan    variabel *max*, tetapi kami menggunakan variabel *pp*. Selain itu, awalnya kami menggunakan *NR* untuk menampilkan *Row ID* terbesar. Seharusnya kami langsung menyimpan      *Row ID* dimana nilai *profit percentage* terbesar itu ditemukan.
+2. Kendala ketika mengerjakan no 2d, yaitu terjadi eror ketika menggunakan *for loop* untuk mencari *profit* terkecil. Karena total profit memiliki jumlah yang sangat besar,    variabel *profit* sebagai pembanding dengan *reg[i]* harus dibuat menjadi 8 digit angka agar tidak mengalami eror.
 
 ## No. 3
 ### 3a
