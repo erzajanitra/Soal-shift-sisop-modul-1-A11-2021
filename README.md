@@ -136,6 +136,8 @@ done
 ```
 pada bagian ini setiap variabel berguna untuk menghitung banyak error dan info dari setiap user sebagaimana pada poin 1c kemudian dioutputkan secara langsung dan ditambahkan pada tail file user_statistic.csv
 
+### Kendala yang dialami selama mengerjakan nomor 1
+
 ## No. 2
 Mencari beberapa kesimpulan dari data penjualan ``Laporan-TokoShiSop.tsv`` yang akan dijelaskan pada no *2a, 2b, 2c, dan 2d*. Soal *2a, 2b, 2c, dan 2d* dikerjakan pada script ``soal2_generate_laporan_ihi_shisop.sh``. Hasil pengerjaan soal tersebut ditampilkan pada ``hasil.txt``.
 * Import awk
@@ -252,6 +254,7 @@ Pada *awk*, semua fungsi *printf* dimasukkan pada blok ``END``.
 ### hasil.txt
 ![image](https://user-images.githubusercontent.com/75319371/113247910-1ce78380-92e6-11eb-937c-ad3334282920.png)
 
+### Kendala yang dialami selama mengerjakan nomor 2
 
 ## No. 3
 ### 3a
@@ -301,5 +304,7 @@ Membuat script yang akan memindahkan seluruh folder ke zip yang diberi nama “K
 
 ### 3e
 Membuat koleksinya ter-zip saat kuliah saja, selain dari waktu yang disebutkan, ia ingin koleksinya ter-unzip dan tidak ada file zip sama sekali.
-* ```* 7-18 1-5 * * /bin/bash /home/erzajanitra/shift1soal3/soal3d.sh```
-* ```* 0-7,18-23 1-5 * * unzip -P $(date +"%m%d%Y") Koleksi.zip```
+* ```* 7 * * 1-5 /bin/bash /home/erzajanitra/shift1soal3/soal3d.sh```
+* ```* 18 * * 1-5 unzip -P $(date +"%m%d%Y") "Koleksi.zip" && rm "Koleksi.zip" ```
+### Output nomor 3
+### Kendala yang dialami selama mengerjakan nomor 3
