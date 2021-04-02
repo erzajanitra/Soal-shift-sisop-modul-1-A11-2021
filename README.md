@@ -273,9 +273,26 @@ Pada *awk*, semua fungsi *printf* dimasukkan pada blok ``END``.
 ```wget -a``` digunakan untuk membuat logfile dari mendownload foto dan disimpan pada *Foto.log*. Sedangkan, ``` -O ``` digunakan untuk memberikan nama file untuk masing-masing gambar yang di download.
 * Menghapus gambar yang sama tanpa mengunduh gambar lagi
 ```declare -A koleksi_foto``` untuk membuat array bernama *koleksi_foto*.```shopt -s globstar``` digunakan untuk mencari file gambar yang sama. ```cksm``` untuk mengecek jumlah gambar yang sama. Apabila ada gambar yang sama akan di remove. 
-* Rename nama file untuk Koleksi 1 - Koleksi 9
-Gambar disimpan dengan format nama *Koleksi_XX*, maka untuk gambar nomor 1-9 diganti menjadi 01,02,..,09.
-#### Hasil gambar yang di download
+* Rename nama file 
+``` j=1
+    for i in {1..23} 
+        do
+        if [ -f Koleksi_$i.jpg ] 
+        then
+            if [ $i -lt 10 ]
+            then
+            mv Koleksi_$i.jpg Koleksi_0$j.jpg
+            j=$[$j+1]
+            else
+            mv Koleksi_$i.jpg Koleksi_$j.jpg
+            j=$[$j+1]
+            fi
+
+        fi
+
+    done
+```
+Gambar disimpan dengan format nama *Koleksi_XX*, maka mengecek gambar yang telah melewati pengecekan untuk gambar yang sama. Untuk file urutan 1-9, nama file akan diganti menjadi *Koleksi_0$i* kemudian menggunakan variabel *j* untuk menandakan bahwa file tersebut sudah direname. Sedangkan, untuk file urutan 10-23 nama file akan diganti menjadi *Koleksi_$j*.
 
 ### 3b
 #### Crontab
@@ -305,21 +322,30 @@ Mengunduh gambar kelinci dari "https://loremflickr.com/320/240/bunny", kemudian 
     fi
 ```
 * Mengecek apakah hari ini memiliki tanggal ganjil atau genap untuk mengunduh gambar secara bergantian. Apabila tanggal genap maka akan mengunduh gambar kucing dan akan         mengunduh gambar kelinci ketika tanggal ganjil.
+#### Folder yang dibuat pada tanggal genap
+![image](https://user-images.githubusercontent.com/75319371/113405714-7201c300-93d4-11eb-975f-fcb17dc8aaa9.png)
+
 
 ### 3d
 Membuat script yang akan memindahkan seluruh folder ke zip yang diberi nama “Koleksi.zip” dan mengunci zip tersebut dengan password berupa tanggal saat ini dengan format "MMDDYYYY".
-* ```-P``` password berupa tanggal saat ini
-* ```-mr``` nama folder zip
+```password=$(date +"%m%d%Y")
+    zip -P $password -mr Koleksi.zip $(ls | grep -E "Kelinci_|Kucing_")
+```
+* ```-P``` password berupa tanggal ketika di zip
+* ```-mr``` nama folder zip yaitu *Koleksi.zip*
 * ```$(ls | grep -E "Kelinci_|Kucing_")``` folder yang akan di zip adalah "Kelinci_$tanggal" dan "Kucing_$tanggal"
+#### Folder Koleksi.zip
+![image](https://user-images.githubusercontent.com/75319371/113405627-54ccf480-93d4-11eb-9eed-6378a3806eb8.png)
+
 
 ### 3e
-Membuat koleksinya ter-zip saat kuliah saja, selain dari waktu yang disebutkan, ia ingin koleksinya ter-unzip dan tidak ada file zip sama sekali.
+Membuat koleksinya menjadi zip pada jam 7-18 dan pada hari Senin-Jumat, selain dari waktu yang disebutkan, ia ingin koleksinya ter-unzip dan tidak ada file zip sama sekali.
 * ```0 7 * * 1-5 /bin/bash /home/erzajanitra/shift1soal3/soal3d.sh```
 * ```0 18 * * 1-5 unzip -P $(date +"%m%d%Y") "Koleksi.zip" && rm "Koleksi.zip" ```
 
 ### Kendala yang dialami selama mengerjakan nomor 3
 1. **Revisi no 3a** 
-    Gambar yang didownload memiliki nomer yang tidak urut. Solusinya dengan mengecek gambar yang telah didownload, mengecek urutan 1-9 dan mengganti nama file menjadi             *Koleksi_0$i* lalu menggunakan variabel *j* untuk menandai bahwa gambar tersebut sudah di rename. Untuk gambar dengan urutan 10-23, nama filenya tetap.
+    Gambar yang didownload memiliki nomer yang tidak urut. Solusinya dengan mengecek gambar yang telah didownload, mengecek urutan 1-9 dan mengganti nama file menjadi             *Koleksi_0$i* lalu menggunakan variabel *j* untuk menandai bahwa gambar tersebut sudah di rename. Untuk gambar dengan urutan 10-23, nama filenya menjadi *Koleksi_$j*.
 2. **Revisi no 3c**
     Awalnya untuk mengunduh gambar kucing dan kelinci secara bergantian kami membandingkan jumlah file kucing dan kelinci yang sudah didownload. Tetapi, karena pada soal         diminta untuk download bergantian tiap hari, kami mengecek apakah tanggal pada hari ini adalah tanggal ganjil atau genap.
 3.  Pada saat mengerjakan no 3e, kami salah meletakkan *1-5* pada bagian day(month) dimana artinya akan menjadi tanggal 1-5 pada sebuah bulan. Sementara perintah pada soal       adalah hari senin-jumat, sehingga *1-5* diletakkan di bagian day(week).
