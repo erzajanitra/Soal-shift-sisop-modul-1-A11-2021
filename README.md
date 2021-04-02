@@ -276,14 +276,12 @@ Pada *awk*, semua fungsi *printf* dimasukkan pada blok ``END``.
 * Rename nama file untuk Koleksi 1 - Koleksi 9
 Gambar disimpan dengan format nama *Koleksi_XX*, maka untuk gambar nomor 1-9 diganti menjadi 01,02,..,09.
 #### Hasil gambar yang di download
-![image](https://user-images.githubusercontent.com/75319371/113386941-7d91c180-93b5-11eb-9b97-c136573e5102.png)
 
 ### 3b
 #### Crontab
-* Menjalankan script **sehari sekali pada jam 8 malam dari tanggal 1 tujuh hari sekali**
-```0 20 1-31/7 * * /bin/bash /home/erzajanitra/shift1soal3/soal3b.sh```
-* Menjalankan script **sehari sekali pada jam 8 malam dari tanggal 2 empat hari sekali**
-```0 20 2-31/4 * * /bin/bash /home/erzajanitra/shift1soal3/soal3b.sh```
+* Menjalankan script **sehari sekali pada jam 8 malam dari tanggal 1 tujuh hari sekali dan dari tanggal 2 empat hari sekali**
+```0 20 1-31/7,2-31/4 * * /bin/bash /home/erzajanitra/shift1soal3/soal3b.sh```
+
 #### soal3b.sh
 * Memindahkan gambar ke folder dengan nama tanggal download
 ```
@@ -325,3 +323,4 @@ Membuat koleksinya ter-zip saat kuliah saja, selain dari waktu yang disebutkan, 
 2. **Revisi no 3c**
     Awalnya untuk mengunduh gambar kucing dan kelinci secara bergantian kami membandingkan jumlah file kucing dan kelinci yang sudah didownload. Tetapi, karena pada soal         diminta untuk download bergantian tiap hari, kami mengecek apakah tanggal pada hari ini adalah tanggal ganjil atau genap.
 3.  Pada saat mengerjakan no 3e, kami salah meletakkan *1-5* pada bagian day(month) dimana artinya akan menjadi tanggal 1-5 pada sebuah bulan. Sementara perintah pada soal       adalah hari senin-jumat, sehingga *1-5* diletakkan di bagian day(week).
+4. Pada saat membuat crontab 3b, awalnya kami membuat dua crontab yaitu ```0 20 1-31/7 * *``` dan ```0 20 2-31/4 * *``` karena kami mengira akan eror apabila digabungkan        menjadi satu seperti ini ```0 20 1-31/7,2-31/4 * *```. Tetapi apabila dibuat menjadi dua crontab, gambar yang akan di download akan double pada tanggal 22.
