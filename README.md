@@ -275,6 +275,8 @@ Pada *awk*, semua fungsi *printf* dimasukkan pada blok ``END``.
 ```declare -A koleksi_foto``` untuk membuat array bernama *koleksi_foto*.```shopt -s globstar``` digunakan untuk mencari file gambar yang sama. ```cksm``` untuk mengecek jumlah gambar yang sama. Apabila ada gambar yang sama akan di remove. 
 * Rename nama file untuk Koleksi 1 - Koleksi 9
 Gambar disimpan dengan format nama *Koleksi_XX*, maka untuk gambar nomor 1-9 diganti menjadi 01,02,..,09.
+#### Hasil gambar yang di download
+![image](https://user-images.githubusercontent.com/75319371/113386941-7d91c180-93b5-11eb-9b97-c136573e5102.png)
 
 ### 3b
 #### Crontab
@@ -290,16 +292,21 @@ Gambar disimpan dengan format nama *Koleksi_XX*, maka untuk gambar nomor 1-9 dig
     mv Foto.log $fotoKucing
 ```
 Gambar yang telah didownload dari script **soal3a.sh** dipindahkan ke folder *shift1soal3* dengan nama directory tanggal download  *DD-MM-YYYY*
+#### Hasil setelah memindahkan gambar ke folder dengan nama directory tanggal download
+![image](https://user-images.githubusercontent.com/75319371/113387290-37892d80-93b6-11eb-80de-a7730a881f77.png)
 
 ### 3c
 Mengunduh gambar kelinci dari "https://loremflickr.com/320/240/bunny", kemudian gambar tersebut diunduh bergantian per hari dengan gambar kucing dari "https://loremflickr.com/320/240/kitten". 
 * Membuat fungsi ```kelinciF()``` dan ```kucingF()``` untuk mengunduh gambar dan menyimpan      gambar pada directory ```"Kelinci_$tanggal"``` untuk kelinci dan ```"Kucing_$tanggal"```
-* Mendownload gambar secara bergantian dengan menghitung jumlah folder kucing dan kelinci. 
+* Mendownload gambar kucing dan kelinci bergantian
 ```
-    c1=$(ls | grep "Kelinci_" | wc -l)
-    c2=$(ls | grep "Kucing_" | wc -l)
+   dates=$(date +%e)
+    if [ $(($dates%2)) -eq 0 ]
+        then kucingF
+    else kelinciF
+    fi
 ```
-* Apabila jumlah folder kucing dan kelinci sama, maka akan menjalankan fungsi ```kucingF()``` terlebih dahulu karena urutan gambar yang lebih dulu didownload bebas. Jika jumlah folder kucing dan kelinci berbeda maka akan menjalankan fungsi ```kelinciF```
+* Mengecek apakah hari ini memiliki tanggal ganjil atau genap untuk mengunduh gambar secara bergantian. Apabila tanggal genap maka akan mengunduh gambar kucing dan akan         mengunduh gambar kelinci ketika tanggal ganjil.
 
 ### 3d
 Membuat script yang akan memindahkan seluruh folder ke zip yang diberi nama “Koleksi.zip” dan mengunci zip tersebut dengan password berupa tanggal saat ini dengan format "MMDDYYYY".
@@ -309,7 +316,12 @@ Membuat script yang akan memindahkan seluruh folder ke zip yang diberi nama “K
 
 ### 3e
 Membuat koleksinya ter-zip saat kuliah saja, selain dari waktu yang disebutkan, ia ingin koleksinya ter-unzip dan tidak ada file zip sama sekali.
-* ```* 7 * * 1-5 /bin/bash /home/erzajanitra/shift1soal3/soal3d.sh```
-* ```* 18 * * 1-5 unzip -P $(date +"%m%d%Y") "Koleksi.zip" && rm "Koleksi.zip" ```
-### Output nomor 3
+* ```0 7 * * 1-5 /bin/bash /home/erzajanitra/shift1soal3/soal3d.sh```
+* ```0 18 * * 1-5 unzip -P $(date +"%m%d%Y") "Koleksi.zip" && rm "Koleksi.zip" ```
+
 ### Kendala yang dialami selama mengerjakan nomor 3
+1. **Revisi no 3a** 
+    Gambar yang didownload memiliki nomer yang tidak urut. Solusinya dengan mengecek gambar yang telah didownload, mengecek urutan 1-9 dan mengganti nama file menjadi             *Koleksi_0$i* lalu menggunakan variabel *j* untuk menandai bahwa gambar tersebut sudah di rename. Untuk gambar dengan urutan 10-23, nama filenya tetap.
+2. **Revisi no 3c**
+    Awalnya untuk mengunduh gambar kucing dan kelinci secara bergantian kami membandingkan jumlah file kucing dan kelinci yang sudah didownload. Tetapi, karena pada soal         diminta untuk download bergantian tiap hari, kami mengecek apakah tanggal pada hari ini adalah tanggal ganjil atau genap.
+3.  Pada saat mengerjakan no 3e, kami salah meletakkan *1-5* pada bagian day(month) dimana artinya akan menjadi tanggal 1-5 pada sebuah bulan. Sementara perintah pada soal       adalah hari senin-jumat, sehingga *1-5* diletakkan di bagian day(week).
