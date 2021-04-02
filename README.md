@@ -322,9 +322,6 @@ Mengunduh gambar kelinci dari "https://loremflickr.com/320/240/bunny", kemudian 
     fi
 ```
 * Mengecek apakah hari ini memiliki tanggal ganjil atau genap untuk mengunduh gambar secara bergantian. Apabila tanggal genap maka akan mengunduh gambar kucing dan akan         mengunduh gambar kelinci ketika tanggal ganjil.
-#### Folder yang dibuat pada tanggal genap
-![image](https://user-images.githubusercontent.com/75319371/113405714-7201c300-93d4-11eb-975f-fcb17dc8aaa9.png)
-
 
 ### 3d
 Membuat script yang akan memindahkan seluruh folder ke zip yang diberi nama “Koleksi.zip” dan mengunci zip tersebut dengan password berupa tanggal saat ini dengan format "MMDDYYYY".
