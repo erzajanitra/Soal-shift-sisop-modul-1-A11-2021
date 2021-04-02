@@ -137,6 +137,9 @@ done
 pada bagian ini setiap variabel berguna untuk menghitung banyak error dan info dari setiap user sebagaimana pada poin 1c kemudian dioutputkan secara langsung dan ditambahkan pada tail file user_statistic.csv
 
 ### Kendala yang dialami selama mengerjakan nomor 1
+![Capture](https://user-images.githubusercontent.com/69724694/113371083-9e472080-938f-11eb-802e-5a5f947cecd1.PNG)
+1. terjadi ketidaksamaan output pada nomor 1c dimana hasil perhitungan error dan info tiap user berbeda dari apa yang diharapkan. setelah diperbaiki diketahui bahwa command yang digunakan salah yaitu seharusnya menggunakan `-wc` daripada menggunakan `-oPc` karena jika menggunakan `-oPc` akan menghitung semua yang mengandung semua kata yang mengandung string tiap user. misalnya ac dan jackowen akan terhitung menjadi satu ketika terjadi iterasi pada ac. jadi ketika menggunakan `-wc` string user dimutlakkan menjadi 1 word tanpa karakter backtracking atau look-forward.
+
 
 ## No. 2
 Mencari beberapa kesimpulan dari data penjualan ``Laporan-TokoShiSop.tsv`` yang akan dijelaskan pada no *2a, 2b, 2c, dan 2d*. Soal *2a, 2b, 2c, dan 2d* dikerjakan pada script ``soal2_generate_laporan_ihi_shisop.sh``. Hasil pengerjaan soal tersebut ditampilkan pada ``hasil.txt``.
