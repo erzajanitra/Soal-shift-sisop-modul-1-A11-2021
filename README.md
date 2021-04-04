@@ -263,7 +263,7 @@ Pada *awk*, semua fungsi *printf* dimasukkan pada blok ``END``.
 
 ## No. 3
 ### 3a
-* Mengunduh 23 gambar dari "https://loremflickr.com/320/240/kitten" 
+* Mengunduh gambar dari "https://loremflickr.com/320/240/kitten" 
 ```soal2_generate_laporan_ihir_shisop.sh
     for i in {1..23}
     do 
@@ -293,8 +293,8 @@ Pada *awk*, semua fungsi *printf* dimasukkan pada blok ``END``.
     done
 ```
 Gambar disimpan dengan format nama *Koleksi_XX*, maka mengecek gambar yang telah melewati pengecekan untuk gambar yang sama. Untuk file urutan 1-9, nama file akan diganti menjadi *Koleksi_0$i* kemudian menggunakan variabel *j* untuk menandakan bahwa file tersebut sudah direname. Sedangkan, untuk file urutan 10-23 nama file akan diganti menjadi *Koleksi_$j*.
-#### Hasil download 23 gambar kucing
-![image](https://user-images.githubusercontent.com/75319371/113498987-34b84500-953c-11eb-85ae-773b3343da65.png)
+#### Hasil download gambar kucing
+![image](https://user-images.githubusercontent.com/75319371/113500553-16a51180-9549-11eb-8cd0-0c2446cf3f8d.png)
 #### Foto.log (log download gambar kucing)
 ![image](https://user-images.githubusercontent.com/75319371/113498999-56b1c780-953c-11eb-991d-2d9aca6f0258.png)
 
