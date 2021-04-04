@@ -293,6 +293,11 @@ Pada *awk*, semua fungsi *printf* dimasukkan pada blok ``END``.
     done
 ```
 Gambar disimpan dengan format nama *Koleksi_XX*, maka mengecek gambar yang telah melewati pengecekan untuk gambar yang sama. Untuk file urutan 1-9, nama file akan diganti menjadi *Koleksi_0$i* kemudian menggunakan variabel *j* untuk menandakan bahwa file tersebut sudah direname. Sedangkan, untuk file urutan 10-23 nama file akan diganti menjadi *Koleksi_$j*.
+#### Hasil download 23 gambar kucing
+![image](https://user-images.githubusercontent.com/75319371/113498987-34b84500-953c-11eb-85ae-773b3343da65.png)
+#### Foto.log (log download gambar kucing)
+![image](https://user-images.githubusercontent.com/75319371/113498999-56b1c780-953c-11eb-991d-2d9aca6f0258.png)
+
 
 ### 3b
 #### Crontab
@@ -308,7 +313,7 @@ Gambar disimpan dengan format nama *Koleksi_XX*, maka mengecek gambar yang telah
 ```
 Gambar yang telah didownload dari script **soal3a.sh** dipindahkan ke folder *shift1soal3* dengan nama directory tanggal download  *DD-MM-YYYY*
 #### Hasil setelah memindahkan gambar ke folder dengan nama directory tanggal download
-![image](https://user-images.githubusercontent.com/75319371/113387290-37892d80-93b6-11eb-80de-a7730a881f77.png)
+![image](https://user-images.githubusercontent.com/75319371/113499024-88c32980-953c-11eb-978b-bf310b0d737f.png)
 
 ### 3c
 Mengunduh gambar kelinci dari "https://loremflickr.com/320/240/bunny", kemudian gambar tersebut diunduh bergantian per hari dengan gambar kucing dari "https://loremflickr.com/320/240/kitten". 
@@ -331,6 +336,9 @@ Membuat script yang akan memindahkan seluruh folder ke zip yang diberi nama “K
 * ```-P``` password berupa tanggal ketika di zip
 * ```-mr``` nama folder zip yaitu *Koleksi.zip*
 * ```$(ls | grep -E "Kelinci_|Kucing_")``` folder yang akan di zip adalah "Kelinci_$tanggal" dan "Kucing_$tanggal"
+#### Proses zip folder Kelinci dan Kucing
+![image](https://user-images.githubusercontent.com/75319371/113499049-e9526680-953c-11eb-9875-9620d27242f1.png)
+
 #### Folder Koleksi.zip
 ![image](https://user-images.githubusercontent.com/75319371/113405627-54ccf480-93d4-11eb-9eed-6378a3806eb8.png)
 
